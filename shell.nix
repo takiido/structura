@@ -10,26 +10,32 @@ pkgs.mkShell {
     ninja
     pkg-config
 
-    # Graphics / input
+    # SDL3
     glew
+    glfw
     glm
-    mesa
     libGL
     libGLU
     libdrm
     libffi
     libxkbcommon
+    mesa
+    pulseaudio
     wayland
     wayland-protocols
+    wayland-scanner
     xorg.libX11
-    xorg.libXext
-    xorg.libXrandr
+    xorg.libXScrnSaver
     xorg.libXcursor
+    xorg.libXext
     xorg.libXi
     xorg.libXinerama
-    xorg.libXScrnSaver
+    xorg.libXrandr
     xorg.xinput
-    pulseaudio
+
+    # UI Library
+    imgui
+    freetype
   ];
 
   shellHook = ''

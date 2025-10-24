@@ -1,11 +1,17 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.30)
-PROJECT(editor LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.27)
+project(editor LANGUAGES CXX)
 
-SET(CMAKE_CXX_STANDARD 23)
-SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-ADD_EXECUTABLE(editor
-    src/main.cpp
+add_executable(editor src/main.cpp)
+
+find_package(OpenGL REQUIRED)
+
+target_link_libraries(editor
+    PRIVATE
+        SDL3::SDL3
+        OpenGL::GL
+        glfw
+        imgui
 )
-
-TARGET_LINK_LIBRARIES(editor PUBLIC SDL3::SDL3)

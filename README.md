@@ -17,7 +17,7 @@ The engine is divided into three parts:
 > [!TIP]
 > If you are using nixos run
 > ```bash
-> nix-shell
+> nix develop
 > ```
 > from project root - this will drop you into a fully configured dev environment with all dependencies installed.
 
@@ -40,11 +40,7 @@ chmod +x ./build_and_run.sh
 
 ## Dependencies
 The project depends on the following libraries:
-- **CMake** - build system
-- **Ninja** - fast incremental builds
-- **GLM** - math library
-- **GLEW** - OpenGL extension wrapper
 - **SDL 3** - windowing, input, and rendering
 - **Dear ImGui** - for editor
 > [!NOTE]
-> If you're using NixOS, all of these are pulled automatically by the provided `shell.nix`
+> If you're using NixOS, all of these are pulled automatically by the provided `flake.nix`

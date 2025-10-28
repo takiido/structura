@@ -1,6 +1,6 @@
-[submodule "external/imgui"]
-	path = external/imgui
-	url = https://github.com/ocornut/imgui
 [submodule "external/sdl3"]
 	path = external/sdl3
 	url = https://github.com/libsdl-org/SDL
+[submodule "external/imgui"]
+	path = external/imgui
+	url = https://github.com/takiido/structura-engine-imgui-lib

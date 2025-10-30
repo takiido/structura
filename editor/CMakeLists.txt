@@ -8,7 +8,6 @@ find_package(OpenGL REQUIRED)
 
 add_executable(editor
     src/main.cpp
-    src/test.cpp
 )
 
 
@@ -17,4 +16,8 @@ target_include_directories(editor
         ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(editor PUBLIC SDL3::SDL3 imgui)
+target_link_libraries(editor PRIVATE SDL3::SDL3 imgui engine)
+
+target_link_directories(editor PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../engine/include
+)

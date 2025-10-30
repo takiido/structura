@@ -7,25 +7,19 @@
 
 #include <iostream>
 
+#include "window.hpp"
+
 int main(int, char**)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr
-            << "SDL init failed: "
-            << SDL_GetError()
-            << "\n";
-        return 1;
-    }
+    StructuraEngine::WindowConfig config;
+    config.title = "Test window";
+    config.type = StructuraEngine::EDITOR;
 
-    // Create OpenGL window
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    StructuraEngine::StructuraWindow SWin = StructuraEngine::StructuraWindow(config);
+    SWin.Init();
 
-    SDL_Window* window = SDL_CreateWindow("ImGui + SDL3 Example", 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-    SDL_GLContext gl_context = SDL_GL_CreateContext(window);
-    SDL_GL_MakeCurrent(window, gl_context);
-    SDL_GL_SetSwapInterval(1); // Enable vsync
+    SDL_Window* window = SWin.GetWindow();
+    SDL_GLContext gl_context = SWin.GetGLContext();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -57,7 +51,9 @@ int main(int, char**)
 
         // Create a simple window
         ImGui::Begin("Hello, world!", &show_window);
-        ImGui::Text("This is a simple ImGui + SDL3 example.");
+        ImGui::Text(config.type == StructuraEngine::EDITOR
+            ? "This is Structura Engine Editor window"
+            : "This is Structura Engine Editor window");
         if (ImGui::Button("Close"))
             running = false;
         ImGui::End();

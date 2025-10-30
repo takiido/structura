@@ -2,3 +2,5 @@ __cmake_systeminformation/
 build/
 .cache/
 imgui.ini
+.zed/
+.vscode/

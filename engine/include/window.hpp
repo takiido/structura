@@ -1,18 +1,26 @@
+#ifndef STRUCTURA_ENGINE_WINDOW_HPP
+#define STRUCTURA_ENGINE_WINDOW_HPP
+
 #include <SDL3/SDL.h>
-#include <iostream>
+#include <string>
+#include <stdexcept>
 
 namespace StructuraEngine {
-  const int MIN_WIN_WIDTH = 640;
-  const int MIN_WIN_HEIGHT = 480;
+  constexpr int MIN_WIN_WIDTH = 640;
+  constexpr int MIN_WIN_HEIGHT = 480;
 
   enum WindowType {
     EDITOR,
     GAME,
   };
 
+  struct WindowResolution {
+    int w;
+    int h;
+  };
+
   struct WindowConfig {
-    int width = 640;
-    int height = 480;
+    WindowResolution resolution = {640, 480};
     std::string title = "Structura Engine Window";
     WindowType type = GAME;
     bool resizable = true;
@@ -23,44 +31,46 @@ namespace StructuraEngine {
 
   class StructuraWindow {
   public:
-    StructuraWindow(const WindowConfig& cfg)
-      : width(cfg.width),
-      height(cfg.height),
-      title(cfg.title),
-      type(cfg.type),
-      allowResizable(cfg.resizable),
-      allowFullscreen(cfg.fullscreen),
-      allowBorderless(cfg.borderless),
-      allowVsync(cfg.vsync) {
-    }
+    StructuraWindow(const WindowConfig& cfg);
+    ~StructuraWindow();
 
-    void SetSize(int w, int h);
-    void SetType(WindowType value);
-    void SetResizable(bool value);
-    std::string GetTitle() { return title; };
-    void Init();
+    StructuraWindow(const StructuraWindow&) = delete;
+    StructuraWindow& operator=(const StructuraWindow&) = delete;
 
-    SDL_Window* GetWindow() const { return window; }
-    SDL_GLContext GetGLContext() const { return gl_context; }
+    void setResolution(WindowResolution size);
+    void setTitle(const std::string& value);
+    void setType(WindowType value);
+    void setVsync(bool value);
+
+    WindowResolution getResolution() const { return m_resolution; }
+    std::string getTitle() const { return m_title; };
+    WindowType getType() const { return m_type; }
+    bool getVsync() const { return m_enableVsync; }
+    SDL_Window* getWindow() const { return m_window; }
+    SDL_GLContext getGLContext() const { return m_glContext; }
 
   private:
+    static int s_instanceCount;
+    static constexpr std::string_view EDITOR_SUFFIX = "    —   Editor";
+
     // Window props
-    int width;
-    int height;
-    std::string title;
-    WindowType type;
+    WindowResolution m_resolution;
+    std::string m_title;
+    WindowType m_type;
 
     // Window flags
-    bool allowResizable;
-    bool allowFullscreen;
-    bool allowBorderless;
+    bool m_allowResizable;
+    bool m_allowFullscreen;
+    bool m_allowBorderless;
 
     // GL props
-    bool allowVsync;
+    bool m_enableVsync;
 
-    SDL_Window* window = nullptr;
-    SDL_GLContext gl_context = nullptr;
+    SDL_Window* m_window = nullptr;
+    SDL_GLContext m_glContext = nullptr;
 
-    void UpdateTitle();
+    void updateTitle();
   };
 }
+
+#endif // STRUCTURA_ENGINE_WINDOW_HPP

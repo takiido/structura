@@ -16,10 +16,9 @@ int main(int, char**)
     config.type = StructuraEngine::EDITOR;
 
     StructuraEngine::StructuraWindow SWin = StructuraEngine::StructuraWindow(config);
-    SWin.Init();
 
-    SDL_Window* window = SWin.GetWindow();
-    SDL_GLContext gl_context = SWin.GetGLContext();
+    SDL_Window* window = SWin.getWindow();
+    SDL_GLContext gl_context = SWin.getGLContext();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
